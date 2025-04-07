@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личный кабинет</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #f8f8f8;
+            color: #333;
+            padding: 20px;
+        }
+        
+        .account-container {
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .account-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        
+        h1 {
+            font-size: 24px;
+            font-weight: 600;
+        }
+        
+        .all-statuses {
+            color: #FF6B81;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        
+        .status-card {
+            background-color: #FFF5E6;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .status-badge {
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            background-color: #FFD700;
+            color: #333;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .status-info {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 16px;
+        }
+        
+        .bonuses-section {
+            display: flex;
+            justify-content: space-between;
+            margin: 25px 0;
+        }
+        
+        .bonus-item {
+            text-align: center;
+            flex: 1;
+        }
+        
+        .bonus-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #FF6B81;
+            margin-bottom: 5px;
+        }
+        
+        .bonus-label {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .order-remaining {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 16px;
+        }
+        
+        .spend-button {
+            display: block;
+            width: 100%;
+            background-color: #FF6B81;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 20px 0;
+            transition: background-color 0.3s;
+        }
+        
+        .spend-button:hover {
+            background-color: #E55A6E;
+        }
+        
+        .missions-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        
+        .missions-title {
+            font-weight: 600;
+            font-size: 18px;
+        }
+        
+        .missions-progress {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .timer {
+            font-family: 'Courier New', monospace;
+            font-size: 20px;
+            text-align: center;
+            margin: 15px 0;
+            color: #333;
+        }
+        
+        .details-link {
+            display: block;
+            text-align: center;
+            color: #FF6B81;
+            text-decoration: none;
+            font-weight: 500;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="account-container">
+        <div class="account-header">
+            <h1>Личный кабинет</h1>
+            <a href="#" class="all-statuses">Все статусы</a>
+        </div>
+        
+        <div class="status-card">
+            <div class="status-badge">Статус Gold</div>
+            <div class="status-info">130 за 1000 руб потраченных</div>
+        </div>
+        
+        <div class="bonuses-section">
+            <div class="bonus-item">
+                <div class="bonus-value">+ 200</div>
+                <div class="bonus-label">баллов</div>
+            </div>
+            <div class="bonus-item">
+                <div class="bonus-value">+ 15%</div>
+                <div class="bonus-label">кэшбек</div>
+            </div>
+        </div>
+        
+        <div class="order-remaining">Осталось заказать на 14 000 руб</div>
+        
+        <button class="spend-button">Потратить</button>
+        
+        <div class="missions-section">
+            <div class="missions-header">
+                <div class="missions-title">Миссии</div>
+                <div class="missions-progress">Выполнено 2 из 3 миссий</div>
+            </div>
+            
+            <div class="timer">0:5:55:12</div>
+            
+            <a href="#" class="details-link">Подробнее</a>
+        </div>
+    </div>
+</body>
+</html>

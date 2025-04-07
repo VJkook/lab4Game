@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tower Builder - Торт</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: white;
+            text-align: center;
+        }
+
+
+        .header {
+            display: flex;
+            justify-content: space-around;
+            padding: 30px 0; /* Уменьшен с 40px */
+            background-color: white;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1); /* Уменьшен shadow */
+        }
+        
+        .header a {
+            text-decoration: none;
+            color: #333;
+            font-size: 24px; /* Уменьшен с 32px */
+        }
+        
+        .nav {
+            display: flex;
+            justify-content: space-around;
+            padding: 22px 0; /* Уменьшен с 30px */
+            background-color: #f1d1b9;
+        }
+        
+        .nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 24px; /* Уменьшен с 32px */
+            font-weight: bold;
+        }
+
+
+        canvas {
+            background-color: #ffccbc;
+            display: block;
+            margin: auto;
+            margin-top: 20px;
+        }
+        .game-over {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <a href="#">О нас</a>
+        <a href="#"></a>
+        <a href="lk.html">Личный кабинет</a>
+    </div>
+    
+    <div class="nav">
+        <a href="catalog.html">Каталог</a>
+        <a href="#">Собрать торт</a>
+        <a href="#">Акции</a>
+        <a href="#">Начинки</a>
+    </div>
+
+
+
+    <canvas id="gameCanvas"></canvas>
+    <div class="game-over" id="gameOverScreen">
+        <h1>Игра окончена!</h1>
+        <p>Вы построили башню из <span id="score">0</span> слоев!</p>
+        <button onclick="restartGame()">Играть снова</button>
+    </div>
+    <script>
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+        canvas.width = 400;
+        canvas.height = 600;
+
+        const cakeImages = [
+            new Image(),
+            new Image(),
+            new Image()
+        ];
+        cakeImages[0].src = "./img/game1.png";
+        cakeImages[1].src = "./img/game2.png";
+        cakeImages[2].src = "./img/game3.png";
+
+        let layers = [];
+        let currentLayer = { x: 0, y: 550, width: 200, height: 40, speed: 3, imgIndex: 0 };
+        let baseLayer = { x: 100, y: 570, width: 200, height: 40, imgIndex: 0 };
+        let gameOver = false;
+
+        function drawLayer(layer) {
+            ctx.drawImage(cakeImages[layer.imgIndex % cakeImages.length], layer.x, layer.y, layer.width, layer.height);
+        }
+
+        function update() {
+            if (gameOver) return;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawLayer(baseLayer);
+            layers.forEach(drawLayer);
+            drawLayer(currentLayer);
+            currentLayer.x += currentLayer.speed;
+            if (currentLayer.x + currentLayer.width > canvas.width || currentLayer.x < 0) {
+                currentLayer.speed *= -1;
+            }
+            requestAnimationFrame(update);
+        }
+
+        function placeLayer() {
+            if (gameOver) return;
+            let lastLayer = layers.length ? layers[layers.length - 1] : baseLayer;
+            let overlap = Math.max(0, Math.min(currentLayer.x + currentLayer.width, lastLayer.x + lastLayer.width) - Math.max(currentLayer.x, lastLayer.x));
+            if (overlap > 0) {
+                let newWidth = overlap;
+                let newX = Math.max(currentLayer.x, lastLayer.x);
+                layers.push({ x: newX, y: lastLayer.y - 30, width: newWidth, height: 40, imgIndex: layers.length % cakeImages.length });
+                currentLayer = { x: 0, y: lastLayer.y - 60, width: newWidth, height: 40, speed: 3, imgIndex: layers.length % cakeImages.length };
+                if (currentLayer.y < 0) {
+                    endGame();
+                }
+            } else {
+                endGame();
+            }
+        }
+
+        function endGame() {
+            gameOver = true;
+            document.getElementById("gameOverScreen").style.display = "block";
+            document.getElementById("score").innerText = layers.length;
+        }
+
+        function restartGame() {
+            gameOver = false;
+            layers = [];
+            currentLayer = { x: 0, y: 550, width: 200, height: 40, speed: 3, imgIndex: 0 };
+            document.getElementById("gameOverScreen").style.display = "none";
+            update();
+        }
+
+        canvas.addEventListener("click", placeLayer);
+        update();
+    </script>
+</body>
+</html>
